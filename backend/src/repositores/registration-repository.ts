@@ -4,4 +4,8 @@ async function listAll() {
   return await prisma.registration.findMany({});
 }
 
-export default { listAll };
+async function create(registration: any) {
+  await prisma.registration.create({ data: registration });
+}
+
+export default { listAll, create };
