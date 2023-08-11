@@ -7,3 +7,5 @@ export async function getAllRegistration() {
 
   return data;
 }
+
+export async function postRegistration(body) {}

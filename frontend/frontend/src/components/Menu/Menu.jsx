@@ -9,11 +9,28 @@ import {
 } from "./layout";
 import Row from "./Row";
 import { getAllRegistration } from "../../services/api";
+import RegistrationForm from "../Forms/RegistrationForm";
 
 function Menu() {
   const [Lselected, setLselected] = useState(true);
   const [Rselected, setRselected] = useState(false);
   const [Dselected, setDselected] = useState(false);
+
+  function Lselect() {
+    setLselected(true);
+    setRselected(false);
+    setDselected(false);
+  }
+  function Rselect() {
+    setLselected(false);
+    setRselected(true);
+    setDselected(false);
+  }
+  function Dselect() {
+    setLselected(false);
+    setRselected(false);
+    setDselected(true);
+  }
 
   const [Registrations, setRegistrations] = useState(null);
   const [Refresh, setRefresh] = useState(false);
@@ -33,28 +50,54 @@ function Menu() {
     <StyledCenter>
       <StyledMenu>
         <StyledNav>
-          <StyledBtn onClick={() => fetchAllRegistration()}>Listar</StyledBtn>
-          <StyledBtn>Registrar</StyledBtn>
-          <StyledBtn>Deletar</StyledBtn>
+          <StyledBtn
+            onClick={() => {
+              fetchAllRegistration();
+              Lselect();
+            }}
+          >
+            Listar
+          </StyledBtn>
+          <StyledBtn
+            onClick={() => {
+              Rselect();
+            }}
+          >
+            Registrar
+          </StyledBtn>
+          <StyledBtn
+            onClick={() => {
+              Dselect();
+            }}
+          >
+            Deletar
+          </StyledBtn>
           <StyledBtn>Procurar</StyledBtn>
         </StyledNav>
         <StyledBody>
-          <StyledContainer>
-            <Row
-              nome={"nome"}
-              email={"email"}
-              profissão={"profissão"}
-              salario={"salario"}
-            />
-            {Registrations?.map((value, index) => (
+          {Lselected ? (
+            <StyledContainer>
               <Row
-                nome={value.name}
-                email={value.email}
-                profissão={value.profession}
-                salario={value.salary}
+                nome={"nome"}
+                email={"email"}
+                profissão={"profissão"}
+                salario={"salario"}
               />
-            ))}
-          </StyledContainer>
+              {Registrations?.map((value, index) => (
+                <Row
+                  key={value.id}
+                  nome={value.name}
+                  email={value.email}
+                  profissão={value.profession}
+                  salario={value.salary}
+                />
+              ))}
+            </StyledContainer>
+          ) : (
+            ""
+          )}
+
+          {Rselected ? <RegistrationForm /> : ""}
         </StyledBody>
       </StyledMenu>
     </StyledCenter>
@@ -62,3 +105,12 @@ function Menu() {
 }
 
 export default Menu;
+
+// name={name}
+// email={email}
+// profession={profession}
+// salary={salary}
+// setName={setName}
+// setEmail={setEmail}
+// setProfession={setProfession}
+// setSalary={setSalary}
