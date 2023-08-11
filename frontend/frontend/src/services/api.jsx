@@ -8,4 +8,14 @@ export async function getAllRegistration() {
   return data;
 }
 
-export async function postRegistration(body) {}
+export async function postRegistration(body) {
+  const { data } = await axios.post(`${api_url}/registration`, body);
+
+  return data;
+}
+
+export async function destroyRegistration(body) {
+  const { data } = await axios.delete(`${api_url}/registration`, body);
+
+  return data;
+}

@@ -10,6 +10,7 @@ import {
 import Row from "./Row";
 import { getAllRegistration } from "../../services/api";
 import RegistrationForm from "../Forms/RegistrationForm";
+import DeleteForm from "../Forms/DeleteForm";
 
 function Menu() {
   const [Lselected, setLselected] = useState(true);
@@ -72,7 +73,6 @@ function Menu() {
           >
             Deletar
           </StyledBtn>
-          <StyledBtn>Procurar</StyledBtn>
         </StyledNav>
         <StyledBody>
           {Lselected ? (
@@ -98,6 +98,8 @@ function Menu() {
           )}
 
           {Rselected ? <RegistrationForm /> : ""}
+
+          {Dselected ? <DeleteForm /> : ""}
         </StyledBody>
       </StyledMenu>
     </StyledCenter>
@@ -105,12 +107,3 @@ function Menu() {
 }
 
 export default Menu;
-
-// name={name}
-// email={email}
-// profession={profession}
-// salary={salary}
-// setName={setName}
-// setEmail={setEmail}
-// setProfession={setProfession}
-// setSalary={setSalary}

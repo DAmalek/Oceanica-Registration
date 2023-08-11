@@ -1,15 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "./layout";
 import { useState } from "react";
-
-// name,
-//   email,
-//   profession,
-//   salary,
-//   setName,
-//   setEmail,
-//   setProfession,
-//   setSalary
+import { postRegistration } from "../../services/api";
 
 function RegistrationForm() {
   const [name, setName] = useState("");
@@ -17,8 +9,22 @@ function RegistrationForm() {
   const [profession, setProfession] = useState("");
   const [salary, setSalary] = useState("");
 
-  function registrationRequest(event) {
+  async function registrationRequest(event) {
     event.preventDefault();
+    const body = {
+      name,
+      email,
+      profession,
+      salary,
+    };
+    console.log(body);
+
+    try {
+      await postRegistration(body);
+    } catch (error) {
+      console.log(error);
+      alert(error.response.data);
+    }
   }
   return (
     <Form onSubmit={registrationRequest}>
@@ -54,7 +60,7 @@ function RegistrationForm() {
         type="number"
         autoComplete="off"
       ></Input>
-      <Button>Registrar</Button>
+      <Button type="submit">Registrar</Button>
     </Form>
   );
 }

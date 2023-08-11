@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import httpStatus from "http-status";
+import httpStatus, { OK } from "http-status";
 import dayjs from "dayjs";
 import registrationRepository from "../repositores/registration-repository";
 import { string } from "joi";
@@ -16,11 +16,11 @@ export async function getAllRegistration(req: Request, res: Response) {
 
 export async function createRegistration(req: Request, res: Response) {
   const { name, email, profession, salary } = req.body;
-  console.log(email);
+  const numSalary = Number(salary);
 
   try {
     const emailExists = await registrationRepository.findByEmail(email);
-    console.log("a ", emailExists);
+
     if (emailExists)
       return res.status(httpStatus.CONFLICT).send("email already exists");
 
@@ -29,7 +29,7 @@ export async function createRegistration(req: Request, res: Response) {
       name,
       email,
       profession,
-      salary,
+      salary: numSalary,
       createdat: dayjs(today).format("DD/MM/YYYY HH:mm"),
     };
     registrationRepository.create(registration);
@@ -45,11 +45,12 @@ export async function destroyRegistration(req: Request, res: Response) {
   const { email } = req.body;
 
   try {
-    const emailExists = registrationRepository.findByEmail(email);
-    if (emailExists)
-      return res.status(httpStatus.CONFLICT).send("email already exists");
+    const emailExists = await registrationRepository.findByEmail(email);
+    if (!emailExists)
+      return res.status(httpStatus.CONFLICT).send("email dont exists yet");
 
     registrationRepository.destroy(email);
+    res.status(OK).send(`register of ${email} destroyed`);
   } catch (error) {
     console.log(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error.message);
