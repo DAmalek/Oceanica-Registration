@@ -11,6 +11,10 @@ import Row from "./Row";
 import { getAllRegistration } from "../../services/api";
 
 function Menu() {
+  const [Lselected, setLselected] = useState(true);
+  const [Rselected, setRselected] = useState(false);
+  const [Dselected, setDselected] = useState(false);
+
   const [Registrations, setRegistrations] = useState(null);
   const [Refresh, setRefresh] = useState(false);
   console.log(Registrations);
@@ -42,6 +46,14 @@ function Menu() {
               profissão={"profissão"}
               salario={"salario"}
             />
+            {Registrations?.map((value, index) => (
+              <Row
+                nome={value.name}
+                email={value.email}
+                profissão={value.profession}
+                salario={value.salary}
+              />
+            ))}
           </StyledContainer>
         </StyledBody>
       </StyledMenu>

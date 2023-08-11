@@ -9,7 +9,7 @@ export const StyledCenter = styled.div`
 `;
 
 export const StyledMenu = styled.div`
-  width: 700px;
+  width: 750px;
   height: 700px;
   background-color: #ebe9e9; //fica
   margin-top: 15px;
@@ -32,7 +32,7 @@ export const StyledBody = styled.div`
 `;
 
 export const StyledContainer = styled.div`
-  width: 600px;
+  width: 650px;
   height: 600px;
   background-color: green;
   margin-top: 15px;
@@ -44,6 +44,11 @@ export const StyledRow = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 10px 0;
+
+  div {
+    justify-content: flex-start;
+    width: 60px;
+  }
 `;
 
 export const StyledBtn = styled.button`
