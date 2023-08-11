@@ -8,4 +8,16 @@ async function create(registration: any) {
   await prisma.registration.create({ data: registration });
 }
 
-export default { listAll, create };
+async function findByEmail(email: string) {
+  return await prisma.registration.findUnique({
+    where: { email: email },
+  });
+}
+
+async function destroy(email: string) {
+  await prisma.registration.delete({
+    where: { email: email },
+  });
+}
+
+export default { listAll, create, findByEmail, destroy };

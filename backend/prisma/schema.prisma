@@ -10,6 +10,7 @@ datasource db {
 model registration {
   id         Int    @id(map: "registration_pk") @default(autoincrement())
   name       String @db.VarChar(100)
+  email      String @db.VarChar(100) @unique
   profession String @db.VarChar(100)
   salary     Int
   createdat  String @db.VarChar
