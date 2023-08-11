@@ -6,7 +6,7 @@ import { string } from "joi";
 
 export async function getAllRegistration(req: Request, res: Response) {
   try {
-    const allRegistration = registrationRepository.listAll();
+    const allRegistration = await registrationRepository.listAll();
 
     res.status(httpStatus.OK).send(allRegistration);
   } catch (error) {
@@ -16,9 +16,11 @@ export async function getAllRegistration(req: Request, res: Response) {
 
 export async function createRegistration(req: Request, res: Response) {
   const { name, email, profession, salary } = req.body;
+  console.log(email);
 
   try {
-    const emailExists = registrationRepository.findByEmail(email);
+    const emailExists = await registrationRepository.findByEmail(email);
+    console.log("a ", emailExists);
     if (emailExists)
       return res.status(httpStatus.CONFLICT).send("email already exists");
 

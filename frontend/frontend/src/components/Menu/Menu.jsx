@@ -8,15 +8,28 @@ import {
   StyledNav,
 } from "./layout";
 import Row from "./Row";
-
-const [Registrations, setRegistrations] = useState([]);
+import { getAllRegistration } from "../../services/api";
 
 function Menu() {
+  const [Registrations, setRegistrations] = useState(null);
+  const [Refresh, setRefresh] = useState(false);
+  console.log(Registrations);
+
+  async function fetchAllRegistration() {
+    try {
+      setRefresh(!Refresh);
+      const allRegistrations = await getAllRegistration();
+      setRegistrations(allRegistrations);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <StyledCenter>
       <StyledMenu>
         <StyledNav>
-          <StyledBtn>Listar</StyledBtn>
+          <StyledBtn onClick={() => fetchAllRegistration()}>Listar</StyledBtn>
           <StyledBtn>Registrar</StyledBtn>
           <StyledBtn>Deletar</StyledBtn>
           <StyledBtn>Procurar</StyledBtn>

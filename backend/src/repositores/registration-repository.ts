@@ -1,7 +1,7 @@
 import prisma from "../config/database";
 
 async function listAll() {
-  return await prisma.registration.findMany({});
+  return prisma.registration.findMany({});
 }
 
 async function create(registration: any) {
@@ -9,7 +9,7 @@ async function create(registration: any) {
 }
 
 async function findByEmail(email: string) {
-  return await prisma.registration.findUnique({
+  return prisma.registration.findUnique({
     where: { email: email },
   });
 }
